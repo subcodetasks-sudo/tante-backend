@@ -1,0 +1,347 @@
+/* Restaurant admin theme — deep green + gold */
+
+:root, .dark {
+    --restaurant-green: #0f2418;
+    --restaurant-green-soft: #163024;
+    --restaurant-green-mid: #1f3d2c;
+    --restaurant-gold: #c9a227;
+    --restaurant-gold-soft: #d4af37;
+    --restaurant-gold-light: #e8d48b;
+}
+
+html {
+    font-family: 'Cairo', ui-sans-serif, system-ui, sans-serif !important;
+}
+
+/* Page background */
+.fi-body,
+.fi-simple-layout,
+.fi-main,
+.fi-main-ctn {
+    background:
+        radial-gradient(ellipse at top, rgba(201, 162, 39, 0.08), transparent 45%),
+        linear-gradient(180deg, #0c1610 0%, #122018 50%, #0c1610 100%) !important;
+}
+
+/* Sidebar */
+.fi-sidebar {
+    background: linear-gradient(180deg, #12281c 0%, #0c1610 100%) !important;
+    border-inline-end: 1px solid rgba(201, 162, 39, 0.18) !important;
+}
+
+.fi-sidebar-header {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(201, 162, 39, 0.15) !important;
+}
+
+.fi-sidebar-nav-item-label,
+.fi-sidebar-item-button,
+.fi-sidebar-group-label {
+    color: #f3efe3 !important;
+}
+
+.fi-sidebar-item-button:hover,
+.fi-sidebar-item-button:hover .fi-sidebar-item-label,
+.fi-sidebar-item-button:hover .fi-sidebar-item-icon {
+    background: rgba(201, 162, 39, 0.12) !important;
+    color: var(--restaurant-gold-soft) !important;
+}
+
+.fi-sidebar-item-button.fi-active,
+.fi-sidebar-item-button[aria-current='page'] {
+    background: rgba(201, 162, 39, 0.2) !important;
+}
+
+.fi-sidebar-item-button.fi-active .fi-sidebar-item-label,
+.fi-sidebar-item-button.fi-active .fi-sidebar-item-icon,
+.fi-sidebar-item-button[aria-current='page'] .fi-sidebar-item-label,
+.fi-sidebar-item-button[aria-current='page'] .fi-sidebar-item-icon {
+    color: var(--restaurant-gold) !important;
+}
+
+/* Brand */
+.fi-logo,
+.fi-sidebar-header .fi-logo {
+    font-family: 'Amiri', 'Cairo', serif !important;
+    font-weight: 700 !important;
+    color: var(--restaurant-gold) !important;
+    font-size: 1.35rem !important;
+    letter-spacing: 0.02em;
+}
+
+/* Topbar */
+.fi-topbar,
+.fi-topbar nav {
+    background: rgba(18, 40, 28, 0.85) !important;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201, 162, 39, 0.15) !important;
+}
+
+/* Headings */
+.fi-header-heading,
+.fi-section-header-heading,
+.fi-wi-stats-overview-stat-label,
+.fi-ta-header-cell,
+h1, h2, h3 {
+    color: var(--restaurant-gold-soft) !important;
+}
+
+.fi-header-subheading,
+.fi-section-header-description {
+    color: rgba(243, 239, 227, 0.75) !important;
+}
+
+/* Cards / panels */
+.fi-section,
+.fi-wi-widget,
+.fi-ta-ctn,
+.fi-fo-component-ctn,
+.fi-simple-main,
+.fi-modal-window,
+.fi-slide-over-window {
+    background: rgba(22, 48, 36, 0.92) !important;
+    border: 1px solid rgba(201, 162, 39, 0.18) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25) !important;
+}
+
+.fi-section {
+    border-radius: 1rem !important;
+    overflow: hidden;
+}
+
+.fi-section-header {
+    background: linear-gradient(90deg, rgba(201, 162, 39, 0.14), transparent) !important;
+    border-bottom: 1px solid rgba(201, 162, 39, 0.18) !important;
+    padding-block: 0.9rem !important;
+}
+
+.fi-section-header-heading {
+    font-family: 'Amiri', 'Cairo', serif !important;
+    font-size: 1.15rem !important;
+    color: var(--restaurant-gold) !important;
+}
+
+.fi-section-header-description {
+    color: rgba(243, 239, 227, 0.7) !important;
+}
+
+.fi-section-header-icon {
+    color: var(--restaurant-gold) !important;
+}
+
+.fi-section-content-ctn,
+.fi-ta-content,
+.fi-fo-field-wrp,
+.fi-in-entry-wrp {
+    color: #f3efe3;
+}
+
+.fi-in-entry-wrp-label {
+    color: var(--restaurant-gold-light) !important;
+}
+
+.fi-sidebar-group-label {
+    color: var(--restaurant-gold) !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.02em;
+}
+
+/* Inputs */
+.fi-input,
+.fi-select-input,
+.fi-ta-text-input,
+.fi-fo-textarea textarea,
+.fi-input-wrp {
+    background-color: rgba(12, 22, 16, 0.65) !important;
+    border-color: rgba(201, 162, 39, 0.25) !important;
+    color: #f8f4e8 !important;
+}
+
+.fi-input:focus,
+.fi-input-wrp:focus-within {
+    border-color: var(--restaurant-gold) !important;
+    box-shadow: 0 0 0 1px rgba(201, 162, 39, 0.45) !important;
+}
+
+.fi-fo-field-wrp-label span,
+.fi-fo-field-wrp-label label {
+    color: var(--restaurant-gold-light) !important;
+}
+
+/* Primary buttons — gold pills */
+.fi-btn-color-primary {
+    background: linear-gradient(180deg, #d4af37 0%, #c9a227 100%) !important;
+    color: #122018 !important;
+    border: none !important;
+    font-weight: 700 !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 6px 18px rgba(201, 162, 39, 0.28);
+}
+
+.fi-btn-color-primary:hover {
+    background: linear-gradient(180deg, #e0bd4a 0%, #d4af37 100%) !important;
+    color: #0c1610 !important;
+}
+
+/* Secondary / outlined gold */
+.fi-btn-color-gray,
+.fi-ac-btn-action.fi-btn-outlined {
+    border-color: rgba(201, 162, 39, 0.55) !important;
+    color: var(--restaurant-gold-soft) !important;
+    border-radius: 9999px !important;
+}
+
+/* Tables */
+.fi-ta-row {
+    border-color: rgba(201, 162, 39, 0.1) !important;
+}
+
+.fi-ta-row:hover {
+    background: rgba(201, 162, 39, 0.06) !important;
+}
+
+.fi-ta-text,
+.fi-ta-cell {
+    color: #f3efe3 !important;
+}
+
+/* Login page */
+.fi-simple-page {
+    background:
+        radial-gradient(ellipse at center, rgba(201, 162, 39, 0.12), transparent 50%),
+        linear-gradient(180deg, #0c1610, #163024) !important;
+}
+
+.fi-simple-main {
+    border-radius: 1.5rem !important;
+}
+
+.fi-simple-header .fi-logo {
+    font-family: 'Amiri', serif !important;
+    color: var(--restaurant-gold) !important;
+}
+
+/* Badges */
+.fi-badge-color-primary {
+    background: rgba(201, 162, 39, 0.2) !important;
+    color: var(--restaurant-gold-soft) !important;
+}
+
+.fi-wi-stats-overview-stat {
+    background: rgba(22, 48, 36, 0.95) !important;
+    border: 1px solid rgba(201, 162, 39, 0.22) !important;
+    border-radius: 1.25rem !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+    padding: 1.5rem 1.25rem !important;
+    min-height: 9rem !important;
+}
+
+.fi-wi-stats-overview-stat-value {
+    color: var(--restaurant-gold) !important;
+    font-weight: 800 !important;
+    font-size: clamp(2rem, 3vw, 2.75rem) !important;
+    line-height: 1.1 !important;
+}
+
+.fi-wi-stats-overview-stat-label {
+    color: #f3efe3 !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+}
+
+.fi-wi-stats-overview-stat-description {
+    color: rgba(243, 239, 227, 0.7) !important;
+    font-size: 0.95rem !important;
+}
+
+.fi-welcome-widget .fi-section {
+    border-color: rgba(201, 162, 39, 0.35) !important;
+    background:
+        linear-gradient(120deg, rgba(201, 162, 39, 0.16), transparent 55%),
+        rgba(22, 48, 36, 0.95) !important;
+}
+
+.fi-welcome-title {
+    font-family: 'Amiri', 'Cairo', serif !important;
+    font-size: clamp(2.25rem, 5vw, 3.5rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    color: var(--restaurant-gold) !important;
+    margin: 0 !important;
+}
+
+.fi-welcome-subtitle {
+    margin-top: 0.35rem !important;
+    font-size: 1rem !important;
+    color: rgba(243, 239, 227, 0.75) !important;
+}
+
+.fi-quick-links-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+}
+
+@media (min-width: 768px) {
+    .fi-quick-links-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 1280px) {
+    .fi-quick-links-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+}
+
+.fi-quick-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 7rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    text-align: center;
+    color: #f3efe3 !important;
+    text-decoration: none !important;
+    background: rgba(12, 22, 16, 0.55);
+    border: 1px solid rgba(201, 162, 39, 0.22);
+    transition: 0.2s ease;
+}
+
+.fi-quick-link:hover {
+    background: rgba(201, 162, 39, 0.14);
+    border-color: rgba(201, 162, 39, 0.55);
+    transform: translateY(-2px);
+}
+
+.fi-quick-link-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+    color: var(--restaurant-gold);
+}
+
+.fi-quick-link span {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+/* Locale switcher */
+.fi-locale-switcher {
+    direction: ltr;
+}
+
+::-webkit-scrollbar-track {
+    background: #0c1610;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(201, 162, 39, 0.45);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--restaurant-gold);
+}
