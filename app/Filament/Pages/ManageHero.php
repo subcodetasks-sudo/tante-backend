@@ -44,7 +44,7 @@ class ManageHero extends Page implements HasForms
         $this->record = Hero::query()->firstOrCreate(
             ['id' => 1],
             [
-                'title' => 'طعم الأصالة',
+                'title' => 'طنط',
                 'description' => null,
                 'content' => null,
                 'button_1_name' => null,

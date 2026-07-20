@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'brand' => 'طعم الأصالة',
+    'brand' => 'طنط',
     'welcome' => [
         'title' => 'مطعم طنط',
     ],

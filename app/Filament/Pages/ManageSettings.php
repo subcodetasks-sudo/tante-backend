@@ -44,7 +44,7 @@ class ManageSettings extends Page implements HasForms
         $this->record = Setting::query()->firstOrCreate(
             ['id' => 1],
             [
-                'restaurant_name' => 'طعم الأصالة',
+                'restaurant_name' => 'طنط',
                 'logo' => null,
                 'description' => null,
                 'facebook' => null,

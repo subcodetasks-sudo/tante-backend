@@ -27,13 +27,13 @@ class RestaurantSeeder extends Seeder
         Setting::query()->updateOrCreate(
             ['id' => 1],
             [
-                'restaurant_name' => 'طعم الأصالة',
+                'restaurant_name' => 'طنط',
                 'description' => 'مطعم يجمع بين نكهات التراث العربي والضيافة الأصيلة في أجواء راقية تليق بذوقك.',
-                'facebook' => 'https://facebook.com/taamalasaala',
-                'instagram' => 'https://instagram.com/taamalasaala',
-                'twitter' => 'https://x.com/taamalasaala',
-                'youtube' => 'https://youtube.com/@taamalasaala',
-                'tiktok' => 'https://tiktok.com/@taamalasaala',
+                'facebook' => 'https://facebook.com/tantrestaurant',
+                'instagram' => 'https://instagram.com/tantrestaurant',
+                'twitter' => 'https://x.com/tantrestaurant',
+                'youtube' => 'https://youtube.com/@tantrestaurant',
+                'tiktok' => 'https://tiktok.com/@tantrestaurant',
                 'whatsapp' => '966500000000',
             ],
         );
@@ -41,7 +41,7 @@ class RestaurantSeeder extends Seeder
         Hero::query()->updateOrCreate(
             ['id' => 1],
             [
-                'title' => 'طعم الأصالة',
+                'title' => 'طنط',
                 'description' => 'استمتع بأشهى المأكولات العربية الأصيلة المحضّرة بحب وخبرة تمتد عبر الأجيال.',
                 'content' => 'من قلب المطبخ التراثي إلى مائدتك، نقدم تجربة طعام لا تُنسى تجمع بين الجودة والضيافة.',
                 'button_1_name' => 'عرض القائمة',
@@ -54,7 +54,7 @@ class RestaurantSeeder extends Seeder
             [
                 'title' => 'من نحن',
                 'description' => 'قصة مطعم بدأ بحلم بسيط: إعادة إحياء نكهات الجدّات بطابع عصري أنيق.',
-                'content' => "نؤمن أن الطعام أكثر من وجبة؛ هو ذكرى ودفء ولقاء.\nفي مطعم طعم الأصالة نختار أجود المكونات، ونطهى وصفاتنا على مهل، لنقدم لك تجربة تستحق الزيارة مرارًا.",
+                'content' => "نؤمن أن الطعام أكثر من وجبة؛ هو ذكرى ودفء ولقاء.\nفي مطعم طنط نختار أجود المكونات، ونطهى وصفاتنا على مهل، لنقدم لك تجربة تستحق الزيارة مرارًا.",
             ],
         );
 

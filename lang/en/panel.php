@@ -1,7 +1,7 @@
 ﻿<?php
 
 return [
-    'brand' => 'Taste of Authenticity',
+    'brand' => 'Tant',
     'welcome' => [
         'title' => 'Tant Restaurant',
     ],
