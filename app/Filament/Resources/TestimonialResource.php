@@ -56,6 +56,18 @@ class TestimonialResource extends Resource
                             ->avatar()
                             ->imageEditor()
                             ->columnSpanFull(),
+                        Forms\Components\FileUpload::make('video')
+                            ->label(__('panel.fields.video'))
+                            ->disk('public')
+                            ->directory('testimonials/videos')
+                            ->acceptedFileTypes([
+                                'video/mp4',
+                                'video/webm',
+                                'video/ogg',
+                                'video/quicktime',
+                            ])
+                            ->maxSize(102400)
+                            ->columnSpanFull(),
                         Forms\Components\TextInput::make('name')
                             ->label(__('panel.fields.name'))
                             ->required()
@@ -98,6 +110,12 @@ class TestimonialResource extends Resource
                             ->disk('public')
                             ->circular()
                             ->placeholder('—'),
+                        Infolists\Components\TextEntry::make('video')
+                            ->label(__('panel.fields.video'))
+                            ->formatStateUsing(fn ($state) => $state ? __('panel.fields.type_video') : '—')
+                            ->url(fn ($record) => $record->video_url)
+                            ->openUrlInNewTab()
+                            ->placeholder('—'),
                         Infolists\Components\TextEntry::make('name')
                             ->label(__('panel.fields.name')),
                         Infolists\Components\TextEntry::make('rating')
@@ -105,7 +123,7 @@ class TestimonialResource extends Resource
                             ->formatStateUsing(fn ($state) => str_repeat('★', (int) $state).str_repeat('☆', 5 - (int) $state))
                             ->color('warning'),
                     ])
-                    ->columns(3),
+                    ->columns(2),
                 Infolists\Components\Section::make(__('panel.sections.customer_review'))
                     ->icon('heroicon-o-chat-bubble-bottom-center-text')
                     ->schema([
@@ -124,6 +142,14 @@ class TestimonialResource extends Resource
                     ->label(__('panel.fields.image'))
                     ->disk('public')
                     ->circular(),
+                Tables\Columns\IconColumn::make('video')
+                    ->label(__('panel.fields.video'))
+                    ->boolean()
+                    ->getStateUsing(fn ($record) => filled($record->video))
+                    ->trueIcon('heroicon-o-video-camera')
+                    ->falseIcon('heroicon-o-minus')
+                    ->trueColor('warning')
+                    ->falseColor('gray'),
                 Tables\Columns\TextColumn::make('name')
                     ->label(__('panel.fields.name'))
                     ->searchable()

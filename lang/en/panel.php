@@ -133,7 +133,7 @@ return [
         'working_hours' => 'Working hours',
         'working_hours_desc' => 'Branch opening and closing times',
         'customer_info' => 'Customer details',
-        'customer_info_desc' => 'Customer photo and name',
+        'customer_info_desc' => 'Customer photo, video and name',
         'customer_review' => 'Review',
         'customer_review_desc' => 'Customer review text',
         'restaurant_info' => 'Restaurant details',

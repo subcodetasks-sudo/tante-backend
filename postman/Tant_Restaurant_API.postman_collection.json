@@ -253,7 +253,7 @@
               "host": ["{{base_url}}"],
               "path": ["testimonials"]
             },
-            "description": "جلب آراء العملاء"
+            "description": "جلب آراء العملاء (صورة وفيديو)"
           },
           "response": []
         }

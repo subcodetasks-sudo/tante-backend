@@ -133,7 +133,7 @@ return [
         'working_hours' => 'مواعيد العمل',
         'working_hours_desc' => 'ساعات فتح وإغلاق الفرع',
         'customer_info' => 'بيانات العميل',
-        'customer_info_desc' => 'صورة واسم العميل',
+        'customer_info_desc' => 'صورة وفيديو واسم العميل',
         'customer_review' => 'الرأي',
         'customer_review_desc' => 'نص تقييم العميل',
         'restaurant_info' => 'بيانات المطعم',

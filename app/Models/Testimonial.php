@@ -11,10 +11,12 @@ class Testimonial extends Model
         'rating',
         'review',
         'image',
+        'video',
     ];
 
     protected $appends = [
         'image_url',
+        'video_url',
     ];
 
     public function getImageUrlAttribute(): ?string
@@ -24,5 +26,14 @@ class Testimonial extends Model
         }
 
         return asset('storage/'.$this->image);
+    }
+
+    public function getVideoUrlAttribute(): ?string
+    {
+        if (! $this->video) {
+            return null;
+        }
+
+        return asset('storage/'.$this->video);
     }
 }

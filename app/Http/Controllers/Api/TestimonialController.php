@@ -19,6 +19,7 @@ class TestimonialController extends Controller
                 'rating' => $testimonial->rating,
                 'review' => $testimonial->review,
                 'image' => $testimonial->image_url,
+                'video' => $testimonial->video_url,
             ]);
 
         return response()->json([
