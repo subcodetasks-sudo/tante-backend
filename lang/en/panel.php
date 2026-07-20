@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 return [
     'brand' => 'Taste of Authenticity',
