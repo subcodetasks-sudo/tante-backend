@@ -62,6 +62,30 @@
       ]
     },
     {
+      "name": "Galleries",
+      "item": [
+        {
+          "name": "Get Galleries",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/galleries",
+              "host": ["{{base_url}}"],
+              "path": ["galleries"]
+            },
+            "description": "جلب المعارض (صورة أو لينك فيديو)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
       "name": "Branches",
       "item": [
         {
