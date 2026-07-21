@@ -67,10 +67,10 @@ class MenuSeeder extends Seeder
                 'name_en' => 'Desserts',
                 'sort_order' => 5,
                 'products' => [
-                    ['name_ar' => 'كنافة', 'name_en' => 'Kunafa', 'calories' => '420', 'price' => null, 'weights' => [
-                        ['weight' => '250g', 'price' => 18.00, 'sort_order' => 1],
-                        ['weight' => '500g', 'price' => 28.00, 'sort_order' => 2],
-                        ['weight' => '1kg', 'price' => 50.00, 'sort_order' => 3],
+                    ['name_ar' => 'كنافة', 'name_en' => 'Kunafa', 'calories' => null, 'price' => null, 'weights' => [
+                        ['weight' => '250g', 'calories' => '350', 'price' => 18.00, 'sort_order' => 1],
+                        ['weight' => '500g', 'calories' => '420', 'price' => 28.00, 'sort_order' => 2],
+                        ['weight' => '1kg', 'calories' => '650', 'price' => 50.00, 'sort_order' => 3],
                     ]],
                     ['name_ar' => 'بقلاوة', 'name_en' => 'Baklava', 'calories' => 380, 'price' => 25.00],
                     ['name_ar' => 'أم علي', 'name_en' => 'Om Ali', 'calories' => 420, 'price' => 24.00],

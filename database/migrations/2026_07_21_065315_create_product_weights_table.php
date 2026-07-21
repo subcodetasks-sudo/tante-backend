@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->string('weight');
+            $table->string('calories')->nullable();
             $table->decimal('price', 10, 2);
             $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();

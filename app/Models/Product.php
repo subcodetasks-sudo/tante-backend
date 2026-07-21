@@ -22,8 +22,20 @@ class Product extends Model
     protected static function booted(): void
     {
         static::saved(function (Product $product): void {
-            if ($product->weights()->exists() && $product->price !== null) {
-                $product->updateQuietly(['price' => null]);
+            if ($product->weights()->exists()) {
+                $updates = [];
+
+                if ($product->price !== null) {
+                    $updates['price'] = null;
+                }
+
+                if ($product->calories !== null) {
+                    $updates['calories'] = null;
+                }
+
+                if ($updates !== []) {
+                    $product->updateQuietly($updates);
+                }
             }
         });
     }
@@ -85,6 +97,7 @@ class Product extends Model
         $weights = $this->weights->map(fn (ProductWeight $weight) => [
             'id' => $weight->id,
             'weight' => $weight->weight,
+            'calories' => $weight->calories,
             'price' => (float) $weight->price,
         ])->values();
 
@@ -98,7 +111,7 @@ class Product extends Model
             ],
             'name_ar' => $this->name_ar,
             'name_en' => $this->name_en,
-            'calories' => $this->calories,
+            'calories' => $weights->isNotEmpty() ? null : $this->calories,
             'price' => $weights->isNotEmpty() ? null : ($this->price !== null ? (float) $this->price : null),
             'weights' => $weights,
             'image' => $this->image_url,
@@ -111,6 +124,7 @@ class Product extends Model
         $weights = $this->weights->map(fn (ProductWeight $weight) => [
             'id' => $weight->id,
             'weight' => $weight->weight,
+            'calories' => $weight->calories,
             'price' => (float) $weight->price,
         ])->values();
 
@@ -118,7 +132,7 @@ class Product extends Model
             'id' => $this->id,
             'name_ar' => $this->name_ar,
             'name_en' => $this->name_en,
-            'calories' => $this->calories,
+            'calories' => $weights->isNotEmpty() ? null : $this->calories,
             'price' => $weights->isNotEmpty() ? null : ($this->price !== null ? (float) $this->price : null),
             'weights' => $weights,
             'image' => $this->image_url,

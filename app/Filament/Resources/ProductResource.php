@@ -78,7 +78,9 @@ class ProductResource extends Resource
                             ->label(__('panel.fields.calories'))
                             ->helperText(__('panel.fields.calories_help'))
                             ->maxLength(50)
-                            ->suffix('kcal'),
+                            ->suffix('kcal')
+                            ->visible(fn (Get $get) => empty($get('weights')))
+                            ->dehydrated(fn (Get $get) => empty($get('weights'))),
                         Forms\Components\TextInput::make('price')
                             ->label(__('panel.fields.price'))
                             ->numeric()
@@ -118,6 +120,11 @@ class ProductResource extends Resource
                                     ->required()
                                     ->maxLength(50)
                                     ->placeholder('250g'),
+                                Forms\Components\TextInput::make('calories')
+                                    ->label(__('panel.fields.calories'))
+                                    ->helperText(__('panel.fields.calories_help'))
+                                    ->maxLength(50)
+                                    ->suffix('kcal'),
                                 Forms\Components\TextInput::make('price')
                                     ->label(__('panel.fields.price'))
                                     ->required()
@@ -129,7 +136,7 @@ class ProductResource extends Resource
                             ->addActionLabel(__('panel.actions.add_weight'))
                             ->reorderable()
                             ->orderColumn('sort_order')
-                            ->columns(2)
+                            ->columns(3)
                             ->columnSpanFull(),
                     ]),
             ]);
@@ -155,6 +162,7 @@ class ProductResource extends Resource
                         Infolists\Components\TextEntry::make('calories')
                             ->label(__('panel.fields.calories'))
                             ->suffix(' kcal')
+                            ->visible(fn (Product $record) => ! $record->hasWeights())
                             ->placeholder('—'),
                         Infolists\Components\TextEntry::make('price')
                             ->label(__('panel.fields.price'))
@@ -168,11 +176,15 @@ class ProductResource extends Resource
                             ->schema([
                                 Infolists\Components\TextEntry::make('weight')
                                     ->label(__('panel.fields.weight')),
+                                Infolists\Components\TextEntry::make('calories')
+                                    ->label(__('panel.fields.calories'))
+                                    ->suffix(' kcal')
+                                    ->placeholder('—'),
                                 Infolists\Components\TextEntry::make('price')
                                     ->label(__('panel.fields.price'))
                                     ->money('SAR'),
                             ])
-                            ->columns(2)
+                            ->columns(3)
                             ->visible(fn (Product $record) => $record->hasWeights())
                             ->columnSpanFull(),
                         Infolists\Components\IconEntry::make('is_active')
@@ -211,7 +223,10 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('calories')
                     ->label(__('panel.fields.calories'))
                     ->suffix(' kcal')
-                    ->placeholder('—'),
+                    ->placeholder('—')
+                    ->formatStateUsing(fn ($state, Product $record) => $record->hasWeights()
+                        ? $record->weights->map(fn ($weight) => $weight->weight.': '.($weight->calories ?: '—'))->join(' | ')
+                        : $state),
                 Tables\Columns\TextColumn::make('price')
                     ->label(__('panel.fields.price'))
                     ->money('SAR')

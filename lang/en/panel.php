@@ -149,7 +149,7 @@ return [
         'product_info' => 'Product details',
         'product_info_desc' => 'Choose a category and enter product name, calories and price',
         'product_weights' => 'Product weights',
-        'product_weights_desc' => 'Add multiple weights, each with its own price. If no weights are added, use the base price.',
+        'product_weights_desc' => 'Add multiple weights, each with its own price and calories. If no weights are added, use the base price and calories.',
         'most_ordered' => 'Most Ordered content',
         'most_ordered_desc' => 'Title and description for the Most Ordered section',
         'most_ordered_products' => 'Most ordered products',

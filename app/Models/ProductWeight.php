@@ -10,6 +10,7 @@ class ProductWeight extends Model
     protected $fillable = [
         'product_id',
         'weight',
+        'calories',
         'price',
         'sort_order',
     ];
