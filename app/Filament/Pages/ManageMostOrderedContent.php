@@ -88,7 +88,7 @@ class ManageMostOrderedContent extends Page implements HasForms, HasTable
             ->description(__('panel.sections.most_ordered_products_desc'))
             ->query(
                 Product::query()
-                    ->with('category')
+                    ->with(['category', 'weights'])
                     ->mostOrdered()
                     ->latest()
             )
@@ -114,7 +114,10 @@ class ManageMostOrderedContent extends Page implements HasForms, HasTable
                     ->placeholder('—'),
                 Tables\Columns\TextColumn::make('price')
                     ->label(__('panel.fields.price'))
-                    ->money('SAR'),
+                    ->placeholder('—')
+                    ->formatStateUsing(fn ($state, Product $record) => $record->hasWeights()
+                        ? $record->weights->map(fn ($weight) => $weight->weight.': '.number_format((float) $weight->price, 2).' ر.س')->join(' | ')
+                        : ($state !== null ? number_format((float) $state, 2).' ر.س' : '—')),
             ])
             ->paginated([10, 25, 50])
             ->defaultPaginationPageOption(10)

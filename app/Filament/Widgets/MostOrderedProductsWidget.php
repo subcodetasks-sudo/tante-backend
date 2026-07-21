@@ -26,7 +26,7 @@ class MostOrderedProductsWidget extends BaseWidget
         return $table
             ->query(
                 Product::query()
-                    ->with('category')
+                    ->with(['category', 'weights'])
                     ->mostOrdered()
                     ->latest()
             )
@@ -42,7 +42,10 @@ class MostOrderedProductsWidget extends BaseWidget
                     ->color('warning'),
                 Tables\Columns\TextColumn::make('price')
                     ->label(__('panel.fields.price'))
-                    ->money('SAR'),
+                    ->placeholder('—')
+                    ->formatStateUsing(fn ($state, Product $record) => $record->hasWeights()
+                        ? $record->weights->map(fn ($weight) => $weight->weight.': '.number_format((float) $weight->price, 2).' ر.س')->join(' | ')
+                        : ($state !== null ? number_format((float) $state, 2).' ر.س' : '—')),
             ])
             ->emptyStateHeading(__('panel.widgets.empty_most_ordered'));
     }

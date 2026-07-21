@@ -67,7 +67,11 @@ class MenuSeeder extends Seeder
                 'name_en' => 'Desserts',
                 'sort_order' => 5,
                 'products' => [
-                    ['name_ar' => 'كنافة', 'name_en' => 'Kunafa', 'calories' => 450, 'price' => 28.00],
+                    ['name_ar' => 'كنافة', 'name_en' => 'Kunafa', 'calories' => '420', 'price' => null, 'weights' => [
+                        ['weight' => '250g', 'price' => 18.00, 'sort_order' => 1],
+                        ['weight' => '500g', 'price' => 28.00, 'sort_order' => 2],
+                        ['weight' => '1kg', 'price' => 50.00, 'sort_order' => 3],
+                    ]],
                     ['name_ar' => 'بقلاوة', 'name_en' => 'Baklava', 'calories' => 380, 'price' => 25.00],
                     ['name_ar' => 'أم علي', 'name_en' => 'Om Ali', 'calories' => 420, 'price' => 24.00],
                 ],
@@ -84,7 +88,10 @@ class MenuSeeder extends Seeder
             );
 
             foreach ($products as $productData) {
-                Product::query()->updateOrCreate(
+                $weights = $productData['weights'] ?? [];
+                unset($productData['weights']);
+
+                $product = Product::query()->updateOrCreate(
                     [
                         'category_id' => $category->id,
                         'name_en' => $productData['name_en'],
@@ -95,6 +102,12 @@ class MenuSeeder extends Seeder
                         'is_flag' => $productData['is_flag'] ?? false,
                     ],
                 );
+
+                $product->weights()->delete();
+
+                foreach ($weights as $weightData) {
+                    $product->weights()->create($weightData);
+                }
             }
         }
     }

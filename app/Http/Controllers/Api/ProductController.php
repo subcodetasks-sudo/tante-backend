@@ -13,7 +13,7 @@ class ProductController extends Controller
     public function index(Request $request): JsonResponse
     {
         $products = Product::query()
-            ->with('category:id,name_ar,name_en')
+            ->with(['category:id,name_ar,name_en', 'weights'])
             ->where('is_active', true)
             ->when(
                 $request->filled('category_id'),
@@ -21,21 +21,7 @@ class ProductController extends Controller
             )
             ->latest()
             ->get()
-            ->map(fn (Product $product) => [
-                'id' => $product->id,
-                'category_id' => $product->category_id,
-                'category' => [
-                    'id' => $product->category?->id,
-                    'name_ar' => $product->category?->name_ar,
-                    'name_en' => $product->category?->name_en,
-                ],
-                'name_ar' => $product->name_ar,
-                'name_en' => $product->name_en,
-                'calories' => $product->calories,
-                'price' => (float) $product->price,
-                'image' => $product->image_url,
-                'is_flag' => (bool) $product->is_flag,
-            ]);
+            ->map(fn (Product $product) => $product->toApiArray());
 
         return response()->json([
             'data' => $products,
@@ -45,7 +31,7 @@ class ProductController extends Controller
     public function menu(): JsonResponse
     {
         $menu = Category::query()
-            ->with(['products' => fn ($query) => $query->where('is_active', true)->latest()])
+            ->with(['products' => fn ($query) => $query->where('is_active', true)->with('weights')->latest()])
             ->orderBy('sort_order')
             ->get()
             ->map(fn (Category $category) => [
@@ -53,15 +39,7 @@ class ProductController extends Controller
                 'name_ar' => $category->name_ar,
                 'name_en' => $category->name_en,
                 'image' => $category->image_url,
-                'products' => $category->products->map(fn (Product $product) => [
-                    'id' => $product->id,
-                    'name_ar' => $product->name_ar,
-                    'name_en' => $product->name_en,
-                    'calories' => $product->calories,
-                    'price' => (float) $product->price,
-                    'image' => $product->image_url,
-                    'is_flag' => (bool) $product->is_flag,
-                ])->values(),
+                'products' => $category->products->map(fn (Product $product) => $product->toMenuApiArray())->values(),
             ]);
 
         return response()->json([

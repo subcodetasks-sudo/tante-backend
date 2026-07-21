@@ -6,11 +6,13 @@ use App\Filament\Resources\ProductResource\Pages;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductResource extends Resource
 {
@@ -38,6 +40,11 @@ class ProductResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __('panel.product.plural');
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with('weights');
     }
 
     public static function form(Form $form): Form
@@ -74,10 +81,12 @@ class ProductResource extends Resource
                             ->suffix('kcal'),
                         Forms\Components\TextInput::make('price')
                             ->label(__('panel.fields.price'))
-                            ->required()
                             ->numeric()
                             ->minValue(0)
-                            ->prefix('ر.س'),
+                            ->prefix('ر.س')
+                            ->required(fn (Get $get) => empty($get('weights')))
+                            ->visible(fn (Get $get) => empty($get('weights')))
+                            ->dehydrated(fn (Get $get) => empty($get('weights'))),
                         Forms\Components\Toggle::make('is_active')
                             ->label(__('panel.fields.is_active'))
                             ->default(true)
@@ -96,6 +105,33 @@ class ProductResource extends Resource
                             ->columnSpanFull(),
                     ])
                     ->columns(2),
+                Forms\Components\Section::make(__('panel.sections.product_weights'))
+                    ->description(__('panel.sections.product_weights_desc'))
+                    ->icon('heroicon-o-scale')
+                    ->schema([
+                        Forms\Components\Repeater::make('weights')
+                            ->relationship()
+                            ->label(__('panel.fields.weights'))
+                            ->schema([
+                                Forms\Components\TextInput::make('weight')
+                                    ->label(__('panel.fields.weight'))
+                                    ->required()
+                                    ->maxLength(50)
+                                    ->placeholder('250g'),
+                                Forms\Components\TextInput::make('price')
+                                    ->label(__('panel.fields.price'))
+                                    ->required()
+                                    ->numeric()
+                                    ->minValue(0)
+                                    ->prefix('ر.س'),
+                            ])
+                            ->defaultItems(0)
+                            ->addActionLabel(__('panel.actions.add_weight'))
+                            ->reorderable()
+                            ->orderColumn('sort_order')
+                            ->columns(2)
+                            ->columnSpanFull(),
+                    ]),
             ]);
     }
 
@@ -124,7 +160,21 @@ class ProductResource extends Resource
                             ->label(__('panel.fields.price'))
                             ->money('SAR')
                             ->badge()
-                            ->color('primary'),
+                            ->color('primary')
+                            ->visible(fn (Product $record) => ! $record->hasWeights())
+                            ->placeholder('—'),
+                        Infolists\Components\RepeatableEntry::make('weights')
+                            ->label(__('panel.fields.weights'))
+                            ->schema([
+                                Infolists\Components\TextEntry::make('weight')
+                                    ->label(__('panel.fields.weight')),
+                                Infolists\Components\TextEntry::make('price')
+                                    ->label(__('panel.fields.price'))
+                                    ->money('SAR'),
+                            ])
+                            ->columns(2)
+                            ->visible(fn (Product $record) => $record->hasWeights())
+                            ->columnSpanFull(),
                         Infolists\Components\IconEntry::make('is_active')
                             ->label(__('panel.fields.is_active'))
                             ->boolean(),
@@ -165,7 +215,11 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('price')
                     ->label(__('panel.fields.price'))
                     ->money('SAR')
-                    ->sortable(),
+                    ->sortable()
+                    ->placeholder('—')
+                    ->formatStateUsing(fn ($state, Product $record) => $record->hasWeights()
+                        ? $record->weights->map(fn ($weight) => $weight->weight.': '.number_format((float) $weight->price, 2).' ر.س')->join(' | ')
+                        : ($state !== null ? number_format((float) $state, 2).' ر.س' : '—')),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label(__('panel.fields.is_active'))
                     ->boolean(),

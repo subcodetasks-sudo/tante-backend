@@ -14,11 +14,11 @@ class MostOrderedController extends Controller
         $content = MostOrderedContent::query()->latest()->first();
 
         $products = Product::query()
-            ->with('category:id,name_ar,name_en')
+            ->with(['category:id,name_ar,name_en', 'weights'])
             ->mostOrdered()
             ->latest()
             ->get()
-            ->map(fn (Product $product) => $this->formatProduct($product));
+            ->map(fn (Product $product) => $product->toApiArray());
 
         return response()->json([
             'data' => [
@@ -27,24 +27,5 @@ class MostOrderedController extends Controller
                 'products' => $products,
             ],
         ]);
-    }
-
-    private function formatProduct(Product $product): array
-    {
-        return [
-            'id' => $product->id,
-            'category_id' => $product->category_id,
-            'category' => [
-                'id' => $product->category?->id,
-                'name_ar' => $product->category?->name_ar,
-                'name_en' => $product->category?->name_en,
-            ],
-            'name_ar' => $product->name_ar,
-            'name_en' => $product->name_en,
-            'calories' => $product->calories,
-            'price' => (float) $product->price,
-            'image' => $product->image_url,
-            'is_flag' => true,
-        ];
     }
 }
