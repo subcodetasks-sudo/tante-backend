@@ -66,7 +66,7 @@ class TestimonialResource extends Resource
                                 'video/ogg',
                                 'video/quicktime',
                             ])
-                            ->maxSize(102400)
+                            ->maxSize(512000)
                             ->columnSpanFull(),
                         Forms\Components\TextInput::make('name')
                             ->label(__('panel.fields.name'))
