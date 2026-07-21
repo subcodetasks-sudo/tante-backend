@@ -106,6 +106,7 @@ return [
         'updated_at' => 'Last updated',
         'category' => 'Category',
         'calories' => 'Calories',
+        'calories_help' => 'Example: 350 or 350 - 450',
         'price' => 'Price',
         'is_active' => 'Active',
         'is_flag' => 'Flag',

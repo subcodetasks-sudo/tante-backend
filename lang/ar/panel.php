@@ -106,6 +106,7 @@ return [
         'updated_at' => 'آخر تحديث',
         'category' => 'التصنيف',
         'calories' => 'السعرات',
+        'calories_help' => 'مثال: 350 أو 350 - 450',
         'price' => 'السعر',
         'is_active' => 'نشط',
         'is_flag' => 'Flag',

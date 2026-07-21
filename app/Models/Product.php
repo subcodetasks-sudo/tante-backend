@@ -27,7 +27,6 @@ class Product extends Model
     {
         return [
             'price' => 'decimal:2',
-            'calories' => 'integer',
             'is_active' => 'boolean',
             'is_flag' => 'boolean',
         ];

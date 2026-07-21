@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
             $table->string('name_ar');
             $table->string('name_en');
-            $table->unsignedInteger('calories')->nullable();
+            $table->string('calories')->nullable();
             $table->decimal('price', 10, 2);
             $table->string('image')->nullable();
             $table->boolean('is_active')->default(true);

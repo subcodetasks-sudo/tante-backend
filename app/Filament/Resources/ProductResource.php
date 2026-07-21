@@ -69,8 +69,8 @@ class ProductResource extends Resource
                             ->maxLength(255),
                         Forms\Components\TextInput::make('calories')
                             ->label(__('panel.fields.calories'))
-                            ->numeric()
-                            ->minValue(0)
+                            ->helperText(__('panel.fields.calories_help'))
+                            ->maxLength(50)
                             ->suffix('kcal'),
                         Forms\Components\TextInput::make('price')
                             ->label(__('panel.fields.price'))
@@ -161,7 +161,6 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('calories')
                     ->label(__('panel.fields.calories'))
                     ->suffix(' kcal')
-                    ->sortable()
                     ->placeholder('—'),
                 Tables\Columns\TextColumn::make('price')
                     ->label(__('panel.fields.price'))
