@@ -10,14 +10,19 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Filament\Tables;
+use Filament\Tables\Concerns\InteractsWithTable;
+use Filament\Tables\Contracts\HasTable;
+use Filament\Tables\Table;
 
-class ManageMostOrderedContent extends Page implements HasForms
+class ManageMostOrderedContent extends Page implements HasForms, HasTable
 {
     use InteractsWithForms;
+    use InteractsWithTable;
 
     protected static ?string $navigationIcon = 'heroicon-o-fire';
 
-    protected static string $view = 'filament.pages.manage-singleton';
+    protected static string $view = 'filament.pages.manage-most-ordered-content';
 
     protected static ?int $navigationSort = 3;
 
@@ -50,13 +55,7 @@ class ManageMostOrderedContent extends Page implements HasForms
             ],
         );
 
-        $this->form->fill([
-            ...$this->record->attributesToArray(),
-            'product_ids' => Product::query()
-                ->where('is_flag', true)
-                ->pluck('id')
-                ->all(),
-        ]);
+        $this->form->fill($this->record->attributesToArray());
     }
 
     public function form(Form $form): Form
@@ -77,46 +76,60 @@ class ManageMostOrderedContent extends Page implements HasForms
                             ->rows(4)
                             ->columnSpanFull(),
                     ]),
-                Forms\Components\Section::make(__('panel.sections.most_ordered_products'))
-                    ->description(__('panel.sections.most_ordered_products_desc'))
-                    ->icon('heroicon-o-shopping-bag')
-                    ->schema([
-                        Forms\Components\Select::make('product_ids')
-                            ->label(__('panel.fields.most_ordered_products'))
-                            ->multiple()
-                            ->searchable()
-                            ->preload()
-                            ->options(fn () => Product::query()
-                                ->with('category')
-                                ->where('is_active', true)
-                                ->orderBy('name_ar')
-                                ->get()
-                                ->mapWithKeys(fn (Product $product) => [
-                                    $product->id => $product->name_ar.' / '.$product->name_en
-                                        .($product->category ? ' ('.$product->category->name_ar.')' : ''),
-                                ]))
-                            ->columnSpanFull(),
-                    ]),
             ])
             ->statePath('data')
             ->model($this->record);
     }
 
+    public function table(Table $table): Table
+    {
+        return $table
+            ->heading(__('panel.sections.most_ordered_products'))
+            ->description(__('panel.sections.most_ordered_products_desc'))
+            ->query(
+                Product::query()
+                    ->with('category')
+                    ->mostOrdered()
+                    ->latest()
+            )
+            ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->label(__('panel.fields.image'))
+                    ->disk('public')
+                    ->circular(),
+                Tables\Columns\TextColumn::make('name_ar')
+                    ->label(__('panel.fields.name_ar'))
+                    ->searchable()
+                    ->weight('bold'),
+                Tables\Columns\TextColumn::make('name_en')
+                    ->label(__('panel.fields.name_en'))
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('category.name_ar')
+                    ->label(__('panel.fields.category'))
+                    ->badge()
+                    ->color('warning'),
+                Tables\Columns\TextColumn::make('calories')
+                    ->label(__('panel.fields.calories'))
+                    ->suffix(' kcal')
+                    ->placeholder('—'),
+                Tables\Columns\TextColumn::make('price')
+                    ->label(__('panel.fields.price'))
+                    ->money('SAR'),
+            ])
+            ->paginated([10, 25, 50])
+            ->defaultPaginationPageOption(10)
+            ->emptyStateHeading(__('panel.widgets.empty_most_ordered'))
+            ->emptyStateDescription(__('panel.sections.most_ordered_products_empty_desc'))
+            ->actions([])
+            ->bulkActions([])
+            ->headerActions([]);
+    }
+
     public function save(): void
     {
         $data = $this->form->getState();
-        $productIds = $data['product_ids'] ?? [];
-        unset($data['product_ids']);
 
         $this->record->update($data);
-
-        Product::query()->update(['is_flag' => false]);
-
-        if (! empty($productIds)) {
-            Product::query()
-                ->whereIn('id', $productIds)
-                ->update(['is_flag' => true]);
-        }
 
         Notification::make()
             ->title(__('filament-panels::resources/pages/edit-record.notifications.saved.title'))

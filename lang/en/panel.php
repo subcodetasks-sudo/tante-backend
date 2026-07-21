@@ -148,6 +148,7 @@ return [
         'most_ordered' => 'Most Ordered content',
         'most_ordered_desc' => 'Title and description for the Most Ordered section',
         'most_ordered_products' => 'Most ordered products',
-        'most_ordered_products_desc' => 'Choose the products shown in the Most Ordered section',
+        'most_ordered_products_desc' => 'Products shown here are set automatically from flagged products (read only)',
+        'most_ordered_products_empty_desc' => 'Enable Flag on the Products page to show a product here',
     ],
 ];

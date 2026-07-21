@@ -148,6 +148,7 @@ return [
         'most_ordered' => 'محتوى الأكثر طلبًا',
         'most_ordered_desc' => 'عنوان ووصف قسم الأكثر طلبًا في الموقع',
         'most_ordered_products' => 'منتجات الأكثر طلبًا',
-        'most_ordered_products_desc' => 'اختر المنتجات التي تظهر في قسم الأكثر طلبًا',
+        'most_ordered_products_desc' => 'المنتجات المعروضة هنا تُحدَّد تلقائيًا من المنتجات المعلّمة بـ Flag (للعرض فقط)',
+        'most_ordered_products_empty_desc' => 'فعّل Flag من صفحة المنتجات لإظهار المنتج هنا',
     ],
 ];
