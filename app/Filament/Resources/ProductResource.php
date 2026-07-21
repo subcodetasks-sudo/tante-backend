@@ -170,11 +170,8 @@ class ProductResource extends Resource
                 Tables\Columns\IconColumn::make('is_active')
                     ->label(__('panel.fields.is_active'))
                     ->boolean(),
-                Tables\Columns\IconColumn::make('is_flag')
-                    ->label(__('panel.fields.is_flag'))
-                    ->boolean()
-                    ->trueColor('warning')
-                    ->falseColor('gray'),
+                Tables\Columns\ToggleColumn::make('is_flag')
+                    ->label(__('panel.fields.is_flag')),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->label(__('panel.fields.updated_at'))
                     ->dateTime('d/m/Y H:i')

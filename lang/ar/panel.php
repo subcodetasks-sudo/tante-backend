@@ -110,6 +110,7 @@ return [
         'is_active' => 'نشط',
         'is_flag' => 'Flag',
         'is_flag_help' => 'عند التفعيل يظهر المنتج في قسم الأكثر طلبًا',
+        'most_ordered_products' => 'منتجات الأكثر طلبًا',
         'sort_order' => 'الترتيب',
         'products_count' => 'عدد المنتجات',
     ],
@@ -146,5 +147,7 @@ return [
         'product_info_desc' => 'اختر التصنيف وأدخل اسم المنتج والسعرات والسعر',
         'most_ordered' => 'محتوى الأكثر طلبًا',
         'most_ordered_desc' => 'عنوان ووصف قسم الأكثر طلبًا في الموقع',
+        'most_ordered_products' => 'منتجات الأكثر طلبًا',
+        'most_ordered_products_desc' => 'اختر المنتجات التي تظهر في قسم الأكثر طلبًا',
     ],
 ];

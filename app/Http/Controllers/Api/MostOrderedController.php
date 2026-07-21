@@ -15,25 +15,10 @@ class MostOrderedController extends Controller
 
         $products = Product::query()
             ->with('category:id,name_ar,name_en')
-            ->where('is_flag', true)
-            ->where('is_active', true)
+            ->mostOrdered()
             ->latest()
             ->get()
-            ->map(fn (Product $product) => [
-                'id' => $product->id,
-                'category_id' => $product->category_id,
-                'category' => [
-                    'id' => $product->category?->id,
-                    'name_ar' => $product->category?->name_ar,
-                    'name_en' => $product->category?->name_en,
-                ],
-                'name_ar' => $product->name_ar,
-                'name_en' => $product->name_en,
-                'calories' => $product->calories,
-                'price' => (float) $product->price,
-                'image' => $product->image_url,
-                'is_flag' => true,
-            ]);
+            ->map(fn (Product $product) => $this->formatProduct($product));
 
         return response()->json([
             'data' => [
@@ -42,5 +27,24 @@ class MostOrderedController extends Controller
                 'products' => $products,
             ],
         ]);
+    }
+
+    private function formatProduct(Product $product): array
+    {
+        return [
+            'id' => $product->id,
+            'category_id' => $product->category_id,
+            'category' => [
+                'id' => $product->category?->id,
+                'name_ar' => $product->category?->name_ar,
+                'name_en' => $product->category?->name_en,
+            ],
+            'name_ar' => $product->name_ar,
+            'name_en' => $product->name_en,
+            'calories' => $product->calories,
+            'price' => (float) $product->price,
+            'image' => $product->image_url,
+            'is_flag' => true,
+        ];
     }
 }

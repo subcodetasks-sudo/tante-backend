@@ -27,8 +27,7 @@ class MostOrderedProductsWidget extends BaseWidget
             ->query(
                 Product::query()
                     ->with('category')
-                    ->where('is_flag', true)
-                    ->where('is_active', true)
+                    ->mostOrdered()
                     ->latest()
             )
             ->paginated([5])

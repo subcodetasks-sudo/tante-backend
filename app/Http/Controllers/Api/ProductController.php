@@ -34,6 +34,7 @@ class ProductController extends Controller
                 'calories' => $product->calories,
                 'price' => (float) $product->price,
                 'image' => $product->image_url,
+                'is_flag' => (bool) $product->is_flag,
             ]);
 
         return response()->json([
@@ -59,6 +60,7 @@ class ProductController extends Controller
                     'calories' => $product->calories,
                     'price' => (float) $product->price,
                     'image' => $product->image_url,
+                    'is_flag' => (bool) $product->is_flag,
                 ])->values(),
             ]);
 

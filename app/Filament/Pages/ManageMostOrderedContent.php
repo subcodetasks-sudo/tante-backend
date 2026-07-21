@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\MostOrderedContent;
+use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
@@ -49,7 +50,13 @@ class ManageMostOrderedContent extends Page implements HasForms
             ],
         );
 
-        $this->form->fill($this->record->attributesToArray());
+        $this->form->fill([
+            ...$this->record->attributesToArray(),
+            'product_ids' => Product::query()
+                ->where('is_flag', true)
+                ->pluck('id')
+                ->all(),
+        ]);
     }
 
     public function form(Form $form): Form
@@ -70,6 +77,26 @@ class ManageMostOrderedContent extends Page implements HasForms
                             ->rows(4)
                             ->columnSpanFull(),
                     ]),
+                Forms\Components\Section::make(__('panel.sections.most_ordered_products'))
+                    ->description(__('panel.sections.most_ordered_products_desc'))
+                    ->icon('heroicon-o-shopping-bag')
+                    ->schema([
+                        Forms\Components\Select::make('product_ids')
+                            ->label(__('panel.fields.most_ordered_products'))
+                            ->multiple()
+                            ->searchable()
+                            ->preload()
+                            ->options(fn () => Product::query()
+                                ->with('category')
+                                ->where('is_active', true)
+                                ->orderBy('name_ar')
+                                ->get()
+                                ->mapWithKeys(fn (Product $product) => [
+                                    $product->id => $product->name_ar.' / '.$product->name_en
+                                        .($product->category ? ' ('.$product->category->name_ar.')' : ''),
+                                ]))
+                            ->columnSpanFull(),
+                    ]),
             ])
             ->statePath('data')
             ->model($this->record);
@@ -78,8 +105,18 @@ class ManageMostOrderedContent extends Page implements HasForms
     public function save(): void
     {
         $data = $this->form->getState();
+        $productIds = $data['product_ids'] ?? [];
+        unset($data['product_ids']);
 
         $this->record->update($data);
+
+        Product::query()->update(['is_flag' => false]);
+
+        if (! empty($productIds)) {
+            Product::query()
+                ->whereIn('id', $productIds)
+                ->update(['is_flag' => true]);
+        }
 
         Notification::make()
             ->title(__('filament-panels::resources/pages/edit-record.notifications.saved.title'))

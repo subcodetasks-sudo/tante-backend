@@ -110,6 +110,7 @@ return [
         'is_active' => 'Active',
         'is_flag' => 'Flag',
         'is_flag_help' => 'When enabled, the product appears in Most Ordered',
+        'most_ordered_products' => 'Most ordered products',
         'sort_order' => 'Sort order',
         'products_count' => 'Products count',
     ],
@@ -146,5 +147,7 @@ return [
         'product_info_desc' => 'Choose a category and enter product name, calories and price',
         'most_ordered' => 'Most Ordered content',
         'most_ordered_desc' => 'Title and description for the Most Ordered section',
+        'most_ordered_products' => 'Most ordered products',
+        'most_ordered_products_desc' => 'Choose the products shown in the Most Ordered section',
     ],
 ];

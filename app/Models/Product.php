@@ -38,6 +38,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function scopeMostOrdered($query)
+    {
+        return $query->where('is_flag', true)->where('is_active', true);
+    }
+
     public function getImageUrlAttribute(): ?string
     {
         if (! $this->image) {
