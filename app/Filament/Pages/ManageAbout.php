@@ -48,6 +48,7 @@ class ManageAbout extends Page implements HasForms
                 'description' => null,
                 'content' => null,
                 'image' => null,
+                'video' => null,
             ],
         );
 
@@ -76,8 +77,8 @@ class ManageAbout extends Page implements HasForms
                             ->rows(5)
                             ->columnSpanFull(),
                     ]),
-                Forms\Components\Section::make(__('panel.sections.about_image'))
-                    ->description(__('panel.sections.about_image_desc'))
+                Forms\Components\Section::make(__('panel.sections.about_media'))
+                    ->description(__('panel.sections.about_media_desc'))
                     ->icon('heroicon-o-photo')
                     ->schema([
                         Forms\Components\FileUpload::make('image')
@@ -86,6 +87,18 @@ class ManageAbout extends Page implements HasForms
                             ->directory('abouts/images')
                             ->image()
                             ->imageEditor()
+                            ->columnSpanFull(),
+                        Forms\Components\FileUpload::make('video')
+                            ->label(__('panel.fields.video'))
+                            ->disk('public')
+                            ->directory('abouts/videos')
+                            ->acceptedFileTypes([
+                                'video/mp4',
+                                'video/webm',
+                                'video/ogg',
+                                'video/quicktime',
+                            ])
+                            ->maxSize(512000)
                             ->columnSpanFull(),
                     ]),
             ])

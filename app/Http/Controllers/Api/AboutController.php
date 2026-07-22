@@ -26,6 +26,7 @@ class AboutController extends Controller
                 'description' => $about->description,
                 'content' => $about->content,
                 'image' => $about->image_url,
+                'video' => $about->video_url,
             ],
         ]);
     }

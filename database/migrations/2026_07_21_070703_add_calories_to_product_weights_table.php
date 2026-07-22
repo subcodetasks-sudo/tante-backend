@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('product_weights', function (Blueprint $table) {
-            $table->string('calories')->nullable()->after('weight');
+            if (! Schema::hasColumn('product_weights', 'calories')) {
+                $table->string('calories')->nullable()->after('weight');
+            }
         });
     }
 
@@ -22,7 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('product_weights', function (Blueprint $table) {
-            $table->dropColumn('calories');
+            if (Schema::hasColumn('product_weights', 'calories')) {
+                $table->dropColumn('calories');
+            }
         });
     }
 };

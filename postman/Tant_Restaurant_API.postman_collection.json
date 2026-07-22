@@ -55,7 +55,7 @@
               "host": ["{{base_url}}"],
               "path": ["about"]
             },
-            "description": "جلب بيانات قسم من نحن (title, description, content, image)"
+            "description": "جلب بيانات قسم من نحن (title, description, content, image, video)"
           },
           "response": []
         }

@@ -128,6 +128,8 @@ return [
         'about_texts_desc' => 'العنوان والوصف والمحتوى الظاهر في صفحة من نحن',
         'about_image' => 'الصورة',
         'about_image_desc' => 'صورة قسم من نحن',
+        'about_media' => 'الوسائط',
+        'about_media_desc' => 'صورة أو فيديو قسم من نحن',
         'gallery_info' => 'بيانات المعرض',
         'gallery_info_desc' => 'أضف صورة أو لينك فيديو',
         'branch_content' => 'محتوى قسم الفروع',

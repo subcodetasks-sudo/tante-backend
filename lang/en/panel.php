@@ -128,6 +128,8 @@ return [
         'about_texts_desc' => 'Title, description and content for About Us',
         'about_image' => 'Image',
         'about_image_desc' => 'About Us section image',
+        'about_media' => 'Media',
+        'about_media_desc' => 'About Us section image or video',
         'gallery_info' => 'Gallery details',
         'gallery_info_desc' => 'Add an image or a video link',
         'branch_content' => 'Branches section content',
